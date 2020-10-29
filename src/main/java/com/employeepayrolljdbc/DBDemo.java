@@ -3,11 +3,17 @@ package com.employeepayrolljdbc;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 
 public class DBDemo {
 	
-	public static void main(String[] args) {
+	public static List<EmployeePayrollData> readData() {
 		String jdbcURL = "jdbc:mysql://localhost:3306/payroll_service";
 		String user = "root";
 		String password = "harshit";
@@ -19,14 +25,30 @@ public class DBDemo {
 			throw new IllegalStateException("Driver Missing!", e);
 		}
 		
-		listDrivers();
+		listDrivers(); 
 		
+		String sql = "select * from employee;";
+		List<EmployeePayrollData> employeePayrollList = new ArrayList<>();
 		try {
 			connection = DriverManager.getConnection(jdbcURL, user, password);
 			System.out.println("Connection successfully established!" + connection);
-		} catch (Exception e) {
+			Statement statement = connection.createStatement();
+			ResultSet result = statement.executeQuery(sql);
+			while(result.next()) {
+				int id = result.getInt("emp_id");
+				String name = result.getString("name");
+				LocalDate startDate = result.getDate("start_date").toLocalDate();
+				int compId = result.getInt("comp_id");
+				employeePayrollList.add(new EmployeePayrollData(id, name, compId,startDate));
+				}
+			connection.close();
+			return employeePayrollList;
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}catch (Exception e) {
 			e.printStackTrace();
 		}
+		return employeePayrollList;
 	}
 
 	private static void listDrivers() {
