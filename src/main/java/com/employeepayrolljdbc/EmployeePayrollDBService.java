@@ -2,6 +2,7 @@ package com.employeepayrolljdbc;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -69,6 +70,18 @@ public class EmployeePayrollDBService {
 		try (Connection connection = getConnection();) {
 			Statement statement = connection.createStatement();
 			return statement.executeUpdate(query);
+		} catch (SQLException e) {
+			throw new DatabaseException("Error while executing the query", ExceptionType.UNABLE_TO_EXECUTE_QUERY);
+		}
+	}
+	
+	public int updateEmployeeSalaryUsingPreparedStatement(String name, double salary) throws DatabaseException {
+		String query = String.format("update employee_payroll set salary = ? where name = ?");
+		try (Connection connection = getConnection();) {
+			PreparedStatement prepareStatement = connection.prepareStatement(query);
+			prepareStatement.setString(2, name);
+			prepareStatement.setDouble(1, salary);
+			return prepareStatement.executeUpdate();
 		} catch (SQLException e) {
 			throw new DatabaseException("Error while executing the query", ExceptionType.UNABLE_TO_EXECUTE_QUERY);
 		}
