@@ -8,9 +8,9 @@ import java.util.Enumeration;
 public class DBDemo {
 	
 	public static void main(String[] args) {
-		String jdbcURL = "jdbc:mysql://localhost:3306/employee_payroll_service";
+		String jdbcURL = "jdbc:mysql://localhost:3306/payroll_service";
 		String user = "root";
-		String password = "Gratitudelog1";
+		String password = "harshit";
 		Connection connection;
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
