@@ -8,24 +8,21 @@ public class EmployeePayrollData {
 	private String empName;
 	private double salary;
 	private LocalDate startDate;
-	private int compId;
 
-	public EmployeePayrollData(int empId, String empName, int compId) {
+	public EmployeePayrollData(int empId, String empName, double salary) {
 		this.empName = empName;
 		this.empId = empId;
-		this.compId = compId;
+		this.salary = salary;
 	}
 
-	public EmployeePayrollData(int id, String name, int compId, LocalDate startDate) {
-		this.empName = name;
-		this.empId = id;
-		this.compId = compId;
+	public EmployeePayrollData(int id, String name, double salary, LocalDate startDate) {
+		this(id, name, salary);
 		this.startDate = startDate;
 	}
 
 	@Override
 	public String toString() {
-		return "Id: " + empId + " Name: " + empName + " Company Id: " + compId;
+		return "Id: " + empId + " Name: " + empName + " Salary: " + salary;
 	}
 
 	public String getEmpName() {
@@ -44,6 +41,22 @@ public class EmployeePayrollData {
 		this.empId = empId;
 	}
 
+	public double getSalary() {
+		return salary;
+	}
+
+	public void setSalary(double salary) {
+		this.salary = salary;
+	}
 	
-	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null || getClass() != obj.getClass())
+			return false;
+		EmployeePayrollData other = (EmployeePayrollData) obj;
+		
+		return empId == other.empId && empName.equals(other.empName) && Double.compare(salary, other.salary) == 0;
+	}
 }
