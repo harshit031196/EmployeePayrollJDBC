@@ -5,10 +5,13 @@ import java.time.LocalDate;
 public class EmployeePayrollData {
 
 	private int empId;
+	private String companyName;
 	private String empName;
+	private String address;
 	private double salary;
 	private LocalDate startDate;
 	private char gender;
+	private String[] departments;
 
 	public EmployeePayrollData(int empId, String empName, double salary) {
 		this.empName = empName;
@@ -21,9 +24,17 @@ public class EmployeePayrollData {
 		this.startDate = startDate;
 	}
 	
-	public EmployeePayrollData(int id, String name, double salary, LocalDate startDate, char gender) {
+	public EmployeePayrollData(int id, String companyName, String name, double salary, LocalDate startDate, char gender) {
 		this(id, name, salary, startDate);
+		this.companyName = companyName;
 		this.gender = gender;
+	}
+	
+	public EmployeePayrollData(int id, String name, String address, double salary, LocalDate startDate, char gender,
+								String companyName, String ... departments) {
+		this(id, companyName, name, salary, startDate, gender);
+		this.departments = departments;
+		this.address = address;
 	}
 
 	@Override
@@ -54,7 +65,27 @@ public class EmployeePayrollData {
 	public void setSalary(double salary) {
 		this.salary = salary;
 	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public LocalDate getStartDate() {
+		return startDate;
+	}
+
+	public String[] getDepartments() {
+		return departments;
+	}
+
+	public char getGender() {
+		return gender;
+	}
 	
+	public String getCompanyName() {
+		return companyName;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -62,7 +93,6 @@ public class EmployeePayrollData {
 		if (obj == null || getClass() != obj.getClass())
 			return false;
 		EmployeePayrollData other = (EmployeePayrollData) obj;
-		return empId == other.empId && empName.equals(other.empName) && Double.compare(salary, other.salary) == 0
-				&& startDate.isEqual(other.startDate) && gender == other.gender;
+		return empId == other.empId  && getCompanyName().equals(other.getCompanyName()) && empName.equals(other.empName) && Double.compare(salary, other.salary) == 0;
 	}
 }
