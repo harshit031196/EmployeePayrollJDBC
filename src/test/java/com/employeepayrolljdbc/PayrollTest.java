@@ -44,7 +44,7 @@ public class PayrollTest {
 //		employeePayrollService.readEmployeeData(IOService.DB_IO);
 //		assertEquals(3, employeePayrollService.employeeDataSize());
 //	}
-	
+//	
 //	@Test
 //	public void givenNewSalaryForEmployee_WhenUpdated_ShouldUpdateInTheDatabaseRecord() {
 //		EmployeePayrollService employeePayrollService = new EmployeePayrollService();
@@ -66,13 +66,13 @@ public class PayrollTest {
 //		assertEquals(3, list.size());
 //	}
 //	
-	@Test
-	public void givenPayrollDB_WhenSumOfSalaryRetrievedByGender_ShouldReturnCorrectResult() {
-		EmployeePayrollService employeePayrollService = new EmployeePayrollService();
-		employeePayrollService.readEmployeeData(IOService.DB_IO);
-		Map<String, Double> sumOfSalariesByGender = employeePayrollService.readSumOfSalariesByGender(IOService.DB_IO);
-		assertTrue(sumOfSalariesByGender.get("M").equals(6500000.00) && sumOfSalariesByGender.get("F").equals(4000000.00));
-	}
+//	@Test
+//	public void givenPayrollDB_WhenSumOfSalaryRetrievedByGender_ShouldReturnCorrectResult() {
+//		EmployeePayrollService employeePayrollService = new EmployeePayrollService();
+//		employeePayrollService.readEmployeeData(IOService.DB_IO);
+//		Map<String, Double> sumOfSalariesByGender = employeePayrollService.readSumOfSalariesByGender(IOService.DB_IO);
+//		assertTrue(sumOfSalariesByGender.get("M").equals(6500000.00) && sumOfSalariesByGender.get("F").equals(4000000.00));
+//	}
 //	
 //	@Test
 //	public void givenPayrollDB_WhenAverageSalaryRetrievedByGender_ShouldReturnCorrectResult() {
@@ -106,14 +106,14 @@ public class PayrollTest {
 //		assertTrue(countByGender.get("M").equals(3) && countByGender.get("F").equals(1));
 //	}
 //	
-//	@Test
-//	public void givenNewEmployee_WhenAddedToDB_ShouldBeInSyncWithDB() {
-//		EmployeePayrollService employeePayrollService = new EmployeePayrollService();
-//		employeePayrollService.readEmployeeData(IOService.DB_IO);
-//		try {
-//			employeePayrollService.addEmployeeToPayroll("Mark", 4000000.0, 'M', LocalDate.now());
-//			boolean result = employeePayrollService.isEmployeePayrollInSyncWithDB("Mark");
-//			assertTrue(result);
-//		} catch (DatabaseException e) {}
-//	}
+	@Test
+	public void givenNewEmployee_WhenAddedToDB_ShouldBeInSyncWithDB() {
+		EmployeePayrollService employeePayrollService = new EmployeePayrollService();
+		employeePayrollService.readEmployeeData(IOService.DB_IO);
+		try {
+			employeePayrollService.addEmployeeToPayroll("Mark", 4000000.0, 'M', LocalDate.now());
+			boolean result = employeePayrollService.isEmployeePayrollInSyncWithDB("Mark");
+			assertTrue(result);
+		} catch (DatabaseException e) {}
+	}
 }

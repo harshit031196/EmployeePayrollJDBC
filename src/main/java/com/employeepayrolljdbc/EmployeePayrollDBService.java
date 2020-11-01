@@ -176,7 +176,7 @@ public class EmployeePayrollDBService {
 		EmployeePayrollData employeePayrollData = null;
 		
 		try(Statement statement = connection.createStatement();){
-			String query = String.format("INSERT INTO employee_payroll (name, gender, salary, start) VALUES ('%s', '%s', '%s', '%s');", 
+			String query = String.format("INSERT INTO employee (name, gender, salary, start) VALUES ('%s', '%s', '%s', '%s');", 
 					name, gender, salary, Date.valueOf(startDate));
 			int rowAffected = statement.executeUpdate(query, statement.RETURN_GENERATED_KEYS);
 			empId = -1;
@@ -193,8 +193,10 @@ public class EmployeePayrollDBService {
 		try(Statement statement = connection.createStatement();){
 			double deductions = salary * 0.2;
 			double tax = (salary - deductions) * 0.1; 
-			String query = String.format("INSERT INTO payroll_details (employee_id, basic_pay, deductions, tax)"
-											+ "VALUES ('%s', '%s', '%s', '%s')", empId, salary, deductions, tax);
+			double taxable_pay = salary - deductions;
+			double net_pay = taxable_pay - tax;
+			String query = String.format("INSERT INTO emp_payroll (id, basic_pay, deductions, taxable_pay,tax,net_pay)"
+											+ "VALUES ('%s', '%s', '%s', '%s', '%s', '%s')", empId, salary, deductions, taxable_pay,tax,net_pay);
 			int rowAffected = statement.executeUpdate(query);
 			if(rowAffected == 1) {
 				employeePayrollData = new EmployeePayrollData(empId, name, salary, startDate, gender);
