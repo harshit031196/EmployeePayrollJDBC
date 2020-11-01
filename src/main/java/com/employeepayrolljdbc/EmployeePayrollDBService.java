@@ -38,7 +38,7 @@ public class EmployeePayrollDBService {
 	 * Returns employee data from the DB
 	 */
 	public ArrayList<EmployeePayrollData> readEmployeeData() throws DatabaseException {
-		String query = "SELECT * FROM employee_payroll";
+		String query = "SELECT * FROM employee";
 		return getEmployeePayrollData(query);
 	}
 	
@@ -81,7 +81,7 @@ public class EmployeePayrollDBService {
 	 * @throws DatabaseException
 	 */
 	public Map<String, Double> getSumOfSalariesByGender() throws DatabaseException {
-		String query = "SELECT gender, SUM(salary) as salary FROM employee_payroll GROUP BY gender";
+		String query = "SELECT gender, SUM(salary) as salary FROM employee GROUP BY gender";
 		return performOperationsOnsalaryByGender(query);
 	}
 	
@@ -139,7 +139,7 @@ public class EmployeePayrollDBService {
 	 * @throws DatabaseException
 	 */
 	public int updateEmployeeSalary(String name, double salary) throws DatabaseException {
-		String query = String.format("update employee_payroll set salary = %.2f where name = '%s'", salary, name);
+		String query = String.format("update employee set salary = %.2f where name = '%s'", salary, name);
 		try (Connection connection = getConnection();) {
 			Statement statement = connection.createStatement();
 			return statement.executeUpdate(query);
@@ -155,7 +155,7 @@ public class EmployeePayrollDBService {
 	 * updates the employee salary using prepared statement
 	 */
 	public int updateEmployeeSalaryUsingPreparedStatement(String name, double salary) throws DatabaseException {
-		String query = String.format("update employee_payroll set salary = ? where name = ?");
+		String query = String.format("update employee set salary = ? where name = ?");
 		try (Connection connection = getConnection();) {
 			PreparedStatement prepareStatement = connection.prepareStatement(query);
 			prepareStatement.setString(2, name);
@@ -233,10 +233,10 @@ public class EmployeePayrollDBService {
 		ArrayList<EmployeePayrollData> list = new ArrayList<EmployeePayrollData>();
 		try {
 			while (result.next()) {
-				int id = result.getInt("id");
+				int id = result.getInt("emp_id");
 				String name = result.getString("name");
 				Double salary = result.getDouble("salary");
-				LocalDate date = result.getDate("start").toLocalDate();
+				LocalDate date = result.getDate("start_date").toLocalDate();
 				String gender = result.getString("gender");
 				list.add(new EmployeePayrollData(id, name, salary, date, gender.charAt(0)));
 			}
