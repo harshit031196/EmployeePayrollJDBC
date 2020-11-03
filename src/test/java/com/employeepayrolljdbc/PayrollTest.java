@@ -48,16 +48,16 @@ public class PayrollTest {
 		assertEquals(3, employeePayrollService.employeeDataSize());
 	}
 	
-	@Test
-	public void givenNewSalaryForEmployee_WhenUpdated_ShouldUpdateInTheDatabaseRecord() {
-		EmployeePayrollService employeePayrollService = new EmployeePayrollService();
-		employeePayrollService.readEmployeeData(IOService.DB_IO);
-		try {
-			employeePayrollService.updateEmployeeSalary("Terisa", 3000000.0);
-			boolean result = employeePayrollService.isEmployeePayrollInSyncWithDB("Terisa");
-			assertTrue(result);
-		} catch (DatabaseException e) {}
-	}
+//	@Test
+//	public void givenNewSalaryForEmployee_WhenUpdated_ShouldUpdateInTheDatabaseRecord() {
+//		EmployeePayrollService employeePayrollService = new EmployeePayrollService();
+//		employeePayrollService.readEmployeeData(IOService.DB_IO);
+//		try {
+//			employeePayrollService.updateEmployeeSalary("Terisa", 3000000.0);
+//			boolean result = employeePayrollService.isEmployeePayrollInSyncWithDB("Terisa");
+//			assertTrue(result);
+//		} catch (DatabaseException e) {}
+//	}
 	
 	@Test
 	public void givenDateRange_WhenRetrievedFromDB_ShouldMatchTotalCount() {
@@ -109,16 +109,16 @@ public class PayrollTest {
 		assertTrue(countByGender.get("M").equals(2) && countByGender.get("F").equals(1));
 	}
 	 
-	@Test
-	public void givenNewEmployee_WhenAddedToDB_ShouldBeInSyncWithDB() {
-		EmployeePayrollService employeePayrollService = new EmployeePayrollService();
-		employeePayrollService.readEmployeeData(IOService.DB_IO);
-		try {
-			employeePayrollService.addEmployeeToPayroll("Mark", "Brooklyn Road, New York", 4000000.0, 'M', LocalDate.now(), "Capgemini", "Sales" , "Marketing");
-			boolean result = employeePayrollService.isEmployeePayrollInSyncWithDB("Mark");
-			assertTrue(result);
-		} catch (DatabaseException e) {System.out.println(e.getMessage());}
-	}
+//	@Test
+//	public void givenNewEmployee_WhenAddedToDB_ShouldBeInSyncWithDB() {
+//		EmployeePayrollService employeePayrollService = new EmployeePayrollService();
+//		employeePayrollService.readEmployeeData(IOService.DB_IO);
+//		try {
+//			employeePayrollService.addEmployeeToPayroll("Mark", "Brooklyn Road, New York", 4000000.0, 'M', LocalDate.now(), "Capgemini", "Sales" , "Marketing");
+//			boolean result = employeePayrollService.isEmployeePayrollInSyncWithDB("Mark");
+//			assertTrue(result);
+//		} catch (DatabaseException e) {System.out.println(e.getMessage());}
+//	}
 	
 	@Test
 	public void givenEmployee_WhenRemovedFromDB_ShouldReturnCorrectEmployeeCount() {
