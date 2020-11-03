@@ -123,20 +123,27 @@ public class EmployeePayrollJsonServerRestAssuredTest {
 //		long enteries = employeePayrollService.countEntries(IOService.REST_IO);
 //		assertEquals(7, enteries);
 //	}
+//	@Test
+//	public void givenNewSalary_OnPut_ShouldReturnUpdatedEmployee() {
+//		EmployeePayrollData[] arrayOfEmps = getEmployeeList();
+//		EmployeePayrollService employeePayrollService = new EmployeePayrollService(Arrays.asList(arrayOfEmps));
+//		
+//		employeePayrollService.updateEmployeeSalary(3, 55000, IOService.REST_IO);
+//		EmployeePayrollData employeePayrollData = employeePayrollService.getEmployeePayrollData(3);
+//		
+//		String jsonString = new Gson().toJson(employeePayrollData);
+//		RequestSpecification request = RestAssured.given();	
+//		request.header("Content-Type","application/json");
+//		request.body(jsonString);
+//		Response response = request.put("/employees/" + employeePayrollData.getId());
+//		int statusCode = response.getStatusCode();
+//		assertEquals(200, statusCode);
+//	}
 	@Test
-	public void givenNewSalary_OnPut_ShouldReturnUpdatedEmployee() {
+	public void givenEmployeePayrollDataInJsonServer_WhenRetrieved_ShouldMatchTheTotalCount() {
 		EmployeePayrollData[] arrayOfEmps = getEmployeeList();
 		EmployeePayrollService employeePayrollService = new EmployeePayrollService(Arrays.asList(arrayOfEmps));
-		
-		employeePayrollService.updateEmployeeSalary(3, 55000, IOService.REST_IO);
-		EmployeePayrollData employeePayrollData = employeePayrollService.getEmployeePayrollData(3);
-		
-		String jsonString = new Gson().toJson(employeePayrollData);
-		RequestSpecification request = RestAssured.given();	
-		request.header("Content-Type","application/json");
-		request.body(jsonString);
-		Response response = request.put("/employees/" + employeePayrollData.getId());
-		int statusCode = response.getStatusCode();
-		assertEquals(200, statusCode);
+		long enteries = employeePayrollService.countEntries(IOService.REST_IO);
+		assertEquals(7, enteries);
 	}
 }
