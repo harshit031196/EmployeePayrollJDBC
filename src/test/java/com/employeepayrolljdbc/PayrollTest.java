@@ -120,13 +120,13 @@ public class PayrollTest {
 //		} catch (DatabaseException e) {System.out.println(e.getMessage());}
 //	}
 	
-	@Test
-	public void givenEmployee_WhenRemovedFromDB_ShouldReturnCorrectEmployeeCount() {
-		EmployeePayrollService employeePayrollService = new EmployeePayrollService();
-		employeePayrollService.readEmployeeData(IOService.DB_IO);
-		employeePayrollService.removeEmployeeFromDB(1);
-		assertEquals(3, employeePayrollService.employeeDataSize());
-	}
+//	@Test
+//	public void givenEmployee_WhenRemovedFromDB_ShouldReturnCorrectEmployeeCount() {
+//		EmployeePayrollService employeePayrollService = new EmployeePayrollService();
+//		employeePayrollService.readEmployeeData(IOService.DB_IO);
+//		employeePayrollService.removeEmployeeFromDB(1);
+//		assertEquals(3, employeePayrollService.employeeDataSize());
+//	}
 	
 	@Test
 	public void givenEmployeePayrollDB_WhenRetrieved_ShouldReturnOnlyActiveEmployees() {
